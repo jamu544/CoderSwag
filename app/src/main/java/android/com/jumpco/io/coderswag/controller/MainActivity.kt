@@ -1,6 +1,7 @@
 package android.com.jumpco.io.coderswag.controller
 
 import android.com.jumpco.io.coderswag.R
+import android.com.jumpco.io.coderswag.adapters.CategoryAdapter
 import android.com.jumpco.io.coderswag.model.Category
 import android.com.jumpco.io.coderswag.services.DataService
 import androidx.appcompat.app.AppCompatActivity
@@ -10,16 +11,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var adapter: ArrayAdapter<Category>
+    lateinit var adapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = ArrayAdapter(this,
-                android.R.layout.simple_list_item_1,
-                DataService.categories)
-
+        adapter = CategoryAdapter(this,DataService.categories)
         categoryListView.adapter = adapter
     }
 }
