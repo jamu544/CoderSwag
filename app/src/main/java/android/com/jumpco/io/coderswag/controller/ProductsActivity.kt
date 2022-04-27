@@ -4,6 +4,8 @@ import android.com.jumpco.io.coderswag.R
 import android.com.jumpco.io.coderswag.adapters.ProductAdapter
 import android.com.jumpco.io.coderswag.services.DataService
 import android.com.jumpco.io.coderswag.utilities.EXTRA_CATEGORY
+import android.com.jumpco.io.coderswag.utilities.EXTRA_PRODUCT
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +21,11 @@ class ProductsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_products)
 
         val categoryType = intent.getStringExtra(EXTRA_CATEGORY)
-        adapter = ProductAdapter(this,DataService.getProducts(categoryType))
+        adapter = ProductAdapter(this,DataService.getProducts(categoryType)){product ->
+            val productDetailIntent = Intent(this,ProductDetailActivity::class.java)
+            productDetailIntent.putExtra(EXTRA_PRODUCT, product)
+            startActivity(productDetailIntent)
+        }
 
         var spanCount = 2
         val orientation = resources.configuration.orientation
